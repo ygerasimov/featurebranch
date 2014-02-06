@@ -1,0 +1,4 @@
+feature_branch_main:
+    resource: "@FeatureBranchMainBundle/Resources/config/routing.yml"
+    prefix:   /
+

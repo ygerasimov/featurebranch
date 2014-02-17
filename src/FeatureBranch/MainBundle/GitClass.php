@@ -13,13 +13,31 @@ use Symfony\Component\Yaml\Exception\ParseException;
  * @author ygerasimov
  */
 class GitClass {
-  protected $origin = '/tmp/repo_origin';
-  protected $destination = '/tmp/repo_destination';
-  protected $state_filename = '/tmp/repo_state.yaml';
+  /**
+   * Repository origin. Where to clone from.
+   */
+  protected $origin;
+
+  /**
+   * Path on local files system where we clone repository to.
+   */
+  protected $destination;
+
+  /**
+   * Path to the yaml file where we keep information about branches - commits of the repo.
+   */
+  protected $state_filename;
+
+  /**
+   * Continuous Integration class to create jobs.
+   */
   protected $ci;
 
-  public function __construct(CIInterface $ci) {
+  public function __construct(CIInterface $ci, $origin, $destination, $state_filename) {
     $this->ci = $ci;
+    $this->origin = $origin;
+    $this->destination = $destination;
+    $this->state_filename = $state_filename;
   }
 
   /**
@@ -84,6 +102,9 @@ class GitClass {
    */
   protected function parseState() {
     $state = array();
+    if (!file_exists($this->state_filename)) {
+      return $state;
+    }
     
     $parser = new Parser();
     try {

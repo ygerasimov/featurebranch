@@ -10,4 +10,4 @@ services:
 
     feature_branch_gitclass:
         class: FeatureBranch\MainBundle\GitClass
-        arguments: [@feature_branch_ci]
+        arguments: [@feature_branch_ci, '/tmp/repo_origin', '/tmp/repo_destination', '/tmp/repo_state.yaml']

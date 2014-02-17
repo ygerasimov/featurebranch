@@ -77,7 +77,7 @@ class GitClass {
    * Checks state of the repo from git command.
    */
   protected function getCurrentState() {
-    $command = 'git fetch > /dev/null 2>&1 && for branch in `git branch -r | grep -v HEAD | cut -d":" -f2`;do echo -e `git show --format="%h" $branch | head -n 1` \| $branch; done';
+    $command = 'git fetch --prune > /dev/null 2>&1 && for branch in `git branch -r | grep -v HEAD | cut -d":" -f2`;do echo -e `git show --format="%h" $branch | head -n 1` \| $branch; done';
     $output = array();
     exec('cd ' . $this->destination . ' && ' . $command, $output);
 

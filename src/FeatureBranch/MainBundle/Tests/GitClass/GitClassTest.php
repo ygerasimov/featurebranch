@@ -58,6 +58,9 @@ class GitClassTest extends \PHPUnit_Framework_TestCase {
     $this->assertContains('testbranch1', $state_file_content);
   }
 
+  /**
+   * Test if branch got updated if commit in that branch received.
+   */
   public function testUpdateBranches() {
     
     // Commit to one branch only.
@@ -91,5 +94,18 @@ class GitClassTest extends \PHPUnit_Framework_TestCase {
     return 'cd ' . $this->origin . ' && git checkout ' . $branch
       . ' && echo "test" >> foo.txt && git add .'
       . ' && git commit -m "commit to ' . $branch . '"';
+  }
+
+  public function testDeleteBranch() {
+    $delete_branch_command = 'cd ' . $this->origin . ' && git checkout master && git branch -D testbranch1';
+    exec($delete_branch_command);
+    
+    $ci = $this->getMock('\FeatureBranch\MainBundle\CI\CILogger', array('updateBranch', 'deleteBranch'));
+    $ci->expects($this->once())
+        ->method('deleteBranch')
+        ->with('origin/testbranch1');
+
+    $git = new GitClass($ci, $this->origin, $this->destination, $this->state_filename);
+    $git->checkState();
   }
 }

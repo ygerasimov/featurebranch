@@ -11,3 +11,15 @@ and update them automatically when detects commits to those branches.
 
 This app has an url that can be triggered in post-receive hook of git. All will
 fetch these commits and check what branch has been updated.
+
+Installation
+========================
+
+As this is symfony app you need to run composer install in order to pull all
+dependencies to vendor folder.
+
+We expect this app, jenkins and server where we deploy all sites to be the same
+physical server.
+
+Additionally you need to install curl php extension and install phing 
+(http://www.phing.info/).

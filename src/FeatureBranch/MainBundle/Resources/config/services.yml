@@ -2,11 +2,14 @@ parameters:
 #    feature_branch_main.example.class: FeatureBranch\MainBundle\Example
 
 services:
-#    feature_branch_main.example:
-#        class: %feature_branch_main.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    feature_branch_ci_connector:
+        class: FeatureBranch\MainBundle\CI\JenkinsConnector
+        calls:
+            - [setContainer, [@service_container]]
+
     feature_branch_ci:
-      class: FeatureBranch\MainBundle\CI\CILogger
+        class: FeatureBranch\MainBundle\CI\CIJenkins
+        arguments: ['app/data/branches_hosts.yaml', @feature_branch_ci_connector]
 
     feature_branch_gitclass:
         class: FeatureBranch\MainBundle\GitClass

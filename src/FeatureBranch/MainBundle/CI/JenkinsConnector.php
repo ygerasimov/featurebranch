@@ -12,9 +12,15 @@ use Symfony\Component\DependencyInjection\ContainerAware;
  */
 class JenkinsConnector extends ContainerAware implements CIInterface {
 
+    protected $host;
+
+    public function __construct($host) {
+        $this->host = $host;
+    }
+
     public function updateBranch($branch) {
         $phing_config = $this->container->get('templating')->render(
-            'MainBundle:phing.build.update.xml.twig', [
+            'FeatureBranchMainBundle::phing.build.update.xml.twig', [
             'branch' => $branch,
         ]);
 
@@ -22,12 +28,18 @@ class JenkinsConnector extends ContainerAware implements CIInterface {
         file_put_contents($phing_filename, $phing_config);
 
         $jenkins_config = $this->container->get('templating')->render(
-            'MainBundle:jenkins.config.xml.twig', [
+            'FeatureBranchMainBundle::jenkins.config.xml.twig', [
             'phing_config_filename' => $phing_filename,
         ]);
 
+        // Make sure we do not have 'origin/' and slashes in the branch name.
+        $branch = substr($branch, strlen('origin/'));
+        $branch = str_replace('/', '-', $branch);
+
         $job_name = 'update-branch-' . $branch;
         $this->createJenkinsJob($job_name, $jenkins_config);
+
+        $this->triggerJenkinsBuild($job_name);
     }
 
     public function deleteBranch($branch) {
@@ -39,17 +51,30 @@ class JenkinsConnector extends ContainerAware implements CIInterface {
     }
 
     protected function createJenkinsJob($job_name, $config_file) {
-        $url = 'http://featurebranch.dev:8080/createItem?name=' . url_encode($job_name);
+        $url = $this->host . '/createItem?name=' . urlencode($job_name);
 
-        $options = array(
-            'http' => array(
-                'header'  => "Content-type: application/xml\r\n",
-                'method'  => 'POST',
-                'content' => $config_file,
-            ),
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $config_file);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/xml',
+            'Content-Length: ' . strlen($config_file))
         );
-        $context  = stream_context_create($options);
-        $result = file_get_contents($url, false, $context);
+
+        $result = curl_exec($ch);
     }
 
+    protected function triggerJenkinsBuild($job_name) {
+        $url = $this->host . '/job/' . urlencode($job_name) . '/build';
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/xml')
+        );
+
+        $result = curl_exec($ch);
+    }
 }

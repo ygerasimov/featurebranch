@@ -2,7 +2,7 @@
 
 namespace FeatureBranch\MainBundle;
 
-use FeatureBranch\MainBundle\CI\CIInterface;
+use FeatureBranch\MainBundle\Service\CI\CIInterface;
 use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Dumper;
 use Symfony\Component\Yaml\Exception\ParseException;

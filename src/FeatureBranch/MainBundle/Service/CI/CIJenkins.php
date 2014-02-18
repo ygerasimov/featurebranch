@@ -4,9 +4,9 @@
  * Use Jenkins to run all tasks.
  */
 
-namespace FeatureBranch\MainBundle\CI;
+namespace FeatureBranch\MainBundle\Service\CI;
 
-use FeatureBranch\MainBundle\CI\CIInterface;
+use FeatureBranch\MainBundle\Service\CI\CIInterface;
 use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Dumper;
 

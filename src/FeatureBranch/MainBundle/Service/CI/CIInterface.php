@@ -3,7 +3,7 @@
 /**
  * Continuous Integration interface.
  */
-namespace FeatureBranch\MainBundle\CI;
+namespace FeatureBranch\MainBundle\Service\CI;
 
 interface CIInterface {
   /**

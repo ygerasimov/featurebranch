@@ -1,8 +1,8 @@
 <?php
 
-namespace FeatureBranch\MainBundle\CI;
+namespace FeatureBranch\MainBundle\Service\CI;
 
-use FeatureBranch\MainBundle\CI\CIInterface;
+use FeatureBranch\MainBundle\Service\CI\CIInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
 /**

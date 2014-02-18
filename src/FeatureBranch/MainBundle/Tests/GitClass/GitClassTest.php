@@ -3,7 +3,7 @@
 namespace FeatureBranch\MainBundle\Tests\GitClass;
 
 use FeatureBranch\MainBundle\GitClass;
-use FeatureBranch\MainBundle\CI\CIInterface;
+use FeatureBranch\MainBundle\Service\CI\CIInterface;
 
 /**
  * Description of GitClassTest
@@ -33,7 +33,7 @@ class GitClassTest extends \PHPUnit_Framework_TestCase {
       . ' && git commit -m "init commit to testbranch1"';
     exec($create_repo_command);
 
-    $ci = $this->getMock('\FeatureBranch\MainBundle\CI\CILogger', array('updateBranch', 'deleteBranch'));
+    $ci = $this->getMock('\FeatureBranch\MainBundle\Service\CI\CILogger', array('updateBranch', 'deleteBranch'));
 
     // Initial check state.
     $git = new GitClass($ci, $this->origin, $this->destination, $this->state_filename);
@@ -66,7 +66,7 @@ class GitClassTest extends \PHPUnit_Framework_TestCase {
     // Commit to one branch only.
     exec($this->getCommandCommitToBranch('master'));
 
-    $ci = $this->getMock('\FeatureBranch\MainBundle\CI\CILogger', array('updateBranch', 'deleteBranch'));
+    $ci = $this->getMock('\FeatureBranch\MainBundle\Service\CI\CILogger', array('updateBranch', 'deleteBranch'));
     $ci->expects($this->once())
         ->method('updateBranch')
         ->with('origin/master');
@@ -78,7 +78,7 @@ class GitClassTest extends \PHPUnit_Framework_TestCase {
     exec($this->getCommandCommitToBranch('master'));
     exec($this->getCommandCommitToBranch('testbranch1'));
     
-    $ci = $this->getMock('\FeatureBranch\MainBundle\CI\CILogger', array('updateBranch', 'deleteBranch'));
+    $ci = $this->getMock('\FeatureBranch\MainBundle\Service\CI\CILogger', array('updateBranch', 'deleteBranch'));
     $ci->expects($this->at(0))
         ->method('updateBranch')
         ->with('origin/master');
@@ -100,7 +100,7 @@ class GitClassTest extends \PHPUnit_Framework_TestCase {
     $delete_branch_command = 'cd ' . $this->origin . ' && git checkout master && git branch -D testbranch1';
     exec($delete_branch_command);
     
-    $ci = $this->getMock('\FeatureBranch\MainBundle\CI\CILogger', array('updateBranch', 'deleteBranch'));
+    $ci = $this->getMock('\FeatureBranch\MainBundle\Service\CI\CILogger', array('updateBranch', 'deleteBranch'));
     $ci->expects($this->once())
         ->method('deleteBranch')
         ->with('origin/testbranch1');

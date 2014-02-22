@@ -90,7 +90,8 @@ class GitClass {
       if (strpos($commit, '-e ') !== FALSE) {
         $commit = str_replace('-e ', '', $commit);
       }
-      
+
+      $branch = substr($branch, strlen('origin/'));
       $state[$branch] = $commit;
     }
 
@@ -100,7 +101,7 @@ class GitClass {
   /**
    * Parse state yaml file.
    */
-  protected function parseState() {
+  public function parseState() {
     $state = array();
     if (!file_exists($this->state_filename)) {
       return $state;

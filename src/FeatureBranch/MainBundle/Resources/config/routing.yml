@@ -1,6 +1,9 @@
 feature_branch_main_homepage:
-    pattern:  /home
+    pattern:  /
     defaults: { _controller: FeatureBranchMainBundle:Default:index }
 feature_branch_main_gitupdate:
     pattern:  /gitupdate
-    defaults: { _controller: FeatureBranchMainBundle:Default:gitupdate }
+    defaults: { _controller: FeatureBranchMainBundle:Default:gitUpdate }
+feature_branch_main_hosts_landing_page:
+    pattern:  /hosts_landing_page
+    defaults: { _controller: FeatureBranchMainBundle:Default:hostsLandingPage }

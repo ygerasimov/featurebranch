@@ -1,1 +1,8 @@
 This should be form with branches - hosts.
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {% for child in form.children %}
+      {{ form_row(child) }}
+    {% endfor %}
+{{ form_end(form) }}

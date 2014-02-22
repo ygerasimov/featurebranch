@@ -32,8 +32,6 @@ class JenkinsConnector extends ContainerAware implements CIInterface {
             'phing_config_filename' => $phing_filename,
         ]);
 
-        // Make sure we do not have 'origin/' and slashes in the branch name.
-        $branch = substr($branch, strlen('origin/'));
         $branch = str_replace('/', '-', $branch);
 
         $job_name = 'update-branch-' . $branch;

@@ -71,4 +71,4 @@ swiftmailer:
 feature_branch_main:
     repo_origin: "/tmp/repo_origin"
     work_filepath: "/tmp/feature_branch"
-    ci_url: "http://featurebranch.dev:8080"
+    ci_url: "http://http://192.168.56.101.xip.io/:8080"

@@ -18,6 +18,11 @@ class JenkinsConnector extends ContainerAware implements CIInterface {
         $this->host = $host;
     }
 
+    /**
+     * Trigger the job to update the branch.
+     *
+     * @param string $branch
+     */
     public function updateBranch($branch) {
         $phing_config = $this->container->get('templating')->render(
             'FeatureBranchMainBundle::phing.build.update.xml.twig', [
@@ -32,20 +37,60 @@ class JenkinsConnector extends ContainerAware implements CIInterface {
             'phing_config_filename' => $phing_filename,
         ]);
 
-        $branch = str_replace('/', '-', $branch);
-
         $job_name = 'update-branch-' . $branch;
         $this->createJenkinsJob($job_name, $jenkins_config);
 
         $this->triggerJenkinsBuild($job_name);
     }
 
+    /**
+     * Trigger the job to delete the host
+     *
+     * @param string $branch
+     */
     public function deleteBranch($branch) {
+        $phing_config = $this->container->get('templating')->render(
+            'FeatureBranchMainBundle::phing.build.delete.xml.twig', [
+            'branch' => $branch,
+        ]);
 
+        $phing_filename = '/tmp/phing_delete_' . rand(0, 10000) . '.xml';
+        file_put_contents($phing_filename, $phing_config);
+
+        $jenkins_config = $this->container->get('templating')->render(
+            'FeatureBranchMainBundle::jenkins.config.xml.twig', [
+            'phing_config_filename' => $phing_filename,
+        ]);
+
+        $job_name = 'delete-branch-' . $branch;
+        $this->createJenkinsJob($job_name, $jenkins_config);
+
+        $this->triggerJenkinsBuild($job_name);
     }
 
+    /**
+     * Trigger job to create host.
+     *
+     * @param string $branch
+     */
     public function createHost($branch) {
+        $phing_config = $this->container->get('templating')->render(
+            'FeatureBranchMainBundle::phing.build.create.xml.twig', [
+            'branch' => $branch,
+        ]);
 
+        $phing_filename = '/tmp/phing_create_' . rand(0, 10000) . '.xml';
+        file_put_contents($phing_filename, $phing_config);
+
+        $jenkins_config = $this->container->get('templating')->render(
+            'FeatureBranchMainBundle::jenkins.config.xml.twig', [
+            'phing_config_filename' => $phing_filename,
+        ]);
+
+        $job_name = 'create-branch-' . $branch;
+        $this->createJenkinsJob($job_name, $jenkins_config);
+
+        $this->triggerJenkinsBuild($job_name);
     }
 
     protected function createJenkinsJob($job_name, $config_file) {

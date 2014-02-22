@@ -36,9 +36,9 @@ class Configuration implements ConfigurationInterface
                     ->example('/tmp')
                 ->end()
                 ->scalarNode('ci_url')
-                    ->defaultValue('http://featurebranch.dev:8080')
+                    ->defaultValue('http://192.168.56.101.xip.io:8080')
                     ->info('URL of the Continuous Integration server')
-                    ->example('http://featurebranch.dev:8080')
+                    ->example('http://192.168.56.101.xip.io:8080')
                 ->end()
             ->end()
         ;

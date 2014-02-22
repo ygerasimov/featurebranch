@@ -24,5 +24,29 @@ class FeatureBranchMainExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        $container->setParameter(
+            'feature_branch.ci_url',
+            $config['ci_url']
+        );
+
+        $filepath = $config['work_filepath'];
+        $container->setParameter(
+            'feature_branch.branches_hosts_config_file',
+            $filepath . '/branches_hosts.yaml'
+        );
+        $container->setParameter(
+            'feature_branch.repo_destination',
+            $filepath . '/repo_destination'
+        );
+        $container->setParameter(
+            'feature_branch.repo_state_config_file',
+            $filepath . '/repo_state.yaml'
+        );
+
+        $container->setParameter(
+            'feature_branch.repo_origin',
+            $config['repo_origin']
+        );
     }
 }

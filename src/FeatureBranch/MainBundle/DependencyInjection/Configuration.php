@@ -23,6 +23,25 @@ class Configuration implements ConfigurationInterface
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
+        $rootNode
+            ->children()
+                ->scalarNode('repo_origin')
+                    ->defaultValue('http://git.drupal.org/project/drupal.git')
+                    ->info('This is original repo we should pull the code from.')
+                    ->example('http://git.drupal.org/project/drupal.git')
+                ->end()
+                ->scalarNode('work_filepath')
+                    ->defaultValue('/tmp')
+                    ->info('Writable folder where we will clone repo to and store some configuration files')
+                    ->example('/tmp')
+                ->end()
+                ->scalarNode('ci_url')
+                    ->defaultValue('http://featurebranch.dev:8080')
+                    ->info('URL of the Continuous Integration server')
+                    ->example('http://featurebranch.dev:8080')
+                ->end()
+            ->end()
+        ;
 
         return $treeBuilder;
     }

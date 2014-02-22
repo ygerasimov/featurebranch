@@ -4,14 +4,14 @@ parameters:
 services:
     feature_branch_ci_connector:
         class: FeatureBranch\MainBundle\Service\CI\JenkinsConnector
-        arguments: ['http://featurebranch.dev:8080']
+        arguments: ['%feature_branch.ci_url%']
         calls:
             - [setContainer, [@service_container]]
 
     feature_branch_ci:
         class: FeatureBranch\MainBundle\Service\CI\CIJenkins
-        arguments: ['app/data/branches_hosts.yaml', @feature_branch_ci_connector]
+        arguments: ['%feature_branch.branches_hosts_config_file%', @feature_branch_ci_connector]
 
     feature_branch_gitclass:
         class: FeatureBranch\MainBundle\GitClass
-        arguments: [@feature_branch_ci, '/tmp/repo_origin', '/tmp/repo_destination', '/tmp/repo_state.yaml']
+        arguments: [@feature_branch_ci, '%feature_branch.repo_origin%', '%feature_branch.repo_destination%', '%feature_branch.repo_state_config_file%']

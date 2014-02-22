@@ -67,3 +67,8 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+feature_branch_main:
+    repo_origin: "/tmp/repo_origin"
+    work_filepath: "/tmp/feature_branch"
+    ci_url: "http://featurebranch.dev:8080"

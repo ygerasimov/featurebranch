@@ -3,14 +3,9 @@
   <target name="git_clone">
     <property name="repo.dir" value="{{ apache_root }}/{{ branch }}" />
 
-    <!-- clone repository -->
-    <gitclone
-        repository="{{ repo_origin }}"
-        targetPath="${repo.dir}" />
+    <exec
+      command="git clone --branch {{ branch }} {{ repo_origin }} {{ apache_root }}/{{ branch }}"
+      />
 
-    <!-- create and switch to "mybranch" branch -->
-    <gitcheckout
-        repository="${repo.dir}"
-        branchname="{{ branch }}" quiet="true" create="true" />
   </target>
 </project>

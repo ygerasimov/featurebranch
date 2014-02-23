@@ -1,15 +1,5 @@
-<project default="hello">
-  <target name="hello">
-    <echo>Hello</echo>
+<project default="delete_folder">
+  <target name="delete_folder">
+    <delete dir="{{ apache_root }}/{{ branch }}" />
   </target>
-
-  <target name="bye">
-    <echo>Bye</echo>
-  </target>
-
-  <target name="variable">
-    <echo>${variable}</echo>
-    <echo>${variable2}</echo>
-  </target>
-
 </project>

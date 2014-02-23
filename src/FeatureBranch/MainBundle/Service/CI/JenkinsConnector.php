@@ -50,9 +50,11 @@ class JenkinsConnector extends ContainerAware implements CIInterface {
      * @param string $branch
      */
     public function deleteBranch($branch) {
+        $apache_root = $this->container->getParameter('feature_branch.apache_root');
         $phing_config = $this->container->get('templating')->render(
             'FeatureBranchMainBundle::phing.build.delete.xml.twig', [
             'branch' => $branch,
+            'apache_root' => $apache_root,
         ]);
 
         $phing_filename = '/tmp/phing_delete_' . rand(0, 10000) . '.xml';
@@ -61,7 +63,7 @@ class JenkinsConnector extends ContainerAware implements CIInterface {
         $jenkins_config = $this->container->get('templating')->render(
             'FeatureBranchMainBundle::jenkins.config.xml.twig', [
             'phing_config_filename' => $phing_filename,
-            'phing_config_tasks' => 'hello',
+            'phing_config_tasks' => 'delete_folder',
         ]);
 
         $job_name = 'delete-branch-' . $branch;

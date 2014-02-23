@@ -45,4 +45,18 @@
       command="mysql -u{{ mysql_login }} -p{{ mysql_pass}} -e'CREATE DATABASE {{ branch }}'" />
   </target>
 
+  <target name="copy_db" description="Copy database from origin branch host">
+    {% if origin_branch != '' %}
+      <property name="drupal.db_dump_file" value="/tmp/{{ origin_branch }}.sql" />
+      <echo msg="Creating db dump from {{ origin_branch }}" />
+      <exec command="drush -r {{ apache_root }}/{{ origin_branch }} sql-dump --skip-tables-key=common > ${drupal.db_dump_file}" />
+      <echo msg="Importing db dump to {{ branch }}" />
+      <!-- Regarding &lt; see http://stackoverflow.com/questions/1474708/character-in-exec-task-is-breaking-my-phing-build-script -->
+      <exec command="mysql -u{{ mysql_login }} -p{{ mysql_pass}} {{ branch }} &lt; ${drupal.db_dump_file}" />
+      <delete dir="${drupal.db_dump_file}" />
+    {% else %}
+      <echo msg="No copying database as no origin branch has been selected." />
+    {% endif %}
+  </target>
+
 </project>

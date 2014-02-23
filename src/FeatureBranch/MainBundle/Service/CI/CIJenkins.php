@@ -49,8 +49,8 @@ class CIJenkins implements CIInterface {
   /**
    * Deploy new host for the branch.
    */
-  public function createHost($branch) {
-    $this->connector->createHost($branch);
+  public function createHost($branch, $origin_branch) {
+    $this->connector->createHost($branch, $origin_branch);
     
     $config = $this->getHostsConfig();
     $config[$branch] = $branch;

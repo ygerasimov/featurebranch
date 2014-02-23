@@ -45,6 +45,7 @@ class DefaultController extends Controller
                     'choices' => $options,
                     'empty_value' => 'Deploy ' . $branch . '. Select copy database from',
                     'label' => ' ',
+                    'required' => FALSE,
                     'attr' => array('class' => 'form-control'),
                     'label_attr' => array('class' => 'control-label'),
                     ));
@@ -66,7 +67,8 @@ class DefaultController extends Controller
 
             switch ($operation) {
                 case 'deploy':
-                    $ci->createHost($branch);
+                    $origin_branch = $form->get('pulldb-' . $branch)->getData();
+                    $ci->createHost($branch, $origin_branch);
                     $hosts_state[$branch] = TRUE;
                     break;
                 case 'delete':

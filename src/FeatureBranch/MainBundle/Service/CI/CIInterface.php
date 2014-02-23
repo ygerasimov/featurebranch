@@ -19,5 +19,5 @@ interface CIInterface {
   /**
    * Deploy new host for the branch.
    */
-  public function createHost($branch);
+  public function createHost($branch, $origin_branch);
 }

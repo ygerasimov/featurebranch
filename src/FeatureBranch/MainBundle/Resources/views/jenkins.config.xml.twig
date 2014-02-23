@@ -13,7 +13,7 @@
   <builders>
     <hudson.plugins.phing.PhingBuilder plugin="phing@0.13.1">
       <buildFile>{{ phing_config_filename }}</buildFile>
-      <targets>hello variable</targets>
+      <targets>{{ phing_config_tasks }}</targets>
       <properties></properties>
       <useModuleRoot>true</useModuleRoot>
     </hudson.plugins.phing.PhingBuilder>

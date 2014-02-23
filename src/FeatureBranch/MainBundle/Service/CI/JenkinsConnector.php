@@ -35,6 +35,7 @@ class JenkinsConnector extends ContainerAware implements CIInterface {
         $jenkins_config = $this->container->get('templating')->render(
             'FeatureBranchMainBundle::jenkins.config.xml.twig', [
             'phing_config_filename' => $phing_filename,
+            'phing_config_tasks' => 'hello',
         ]);
 
         $job_name = 'update-branch-' . $branch;
@@ -60,6 +61,7 @@ class JenkinsConnector extends ContainerAware implements CIInterface {
         $jenkins_config = $this->container->get('templating')->render(
             'FeatureBranchMainBundle::jenkins.config.xml.twig', [
             'phing_config_filename' => $phing_filename,
+            'phing_config_tasks' => 'hello',
         ]);
 
         $job_name = 'delete-branch-' . $branch;
@@ -74,9 +76,14 @@ class JenkinsConnector extends ContainerAware implements CIInterface {
      * @param string $branch
      */
     public function createHost($branch) {
+        $apache_root = $this->container->getParameter('feature_branch.apache_root');
+        $repo_origin = $this->container->getParameter('feature_branch.repo_origin');
+
         $phing_config = $this->container->get('templating')->render(
             'FeatureBranchMainBundle::phing.build.create.xml.twig', [
             'branch' => $branch,
+            'apache_root' => $apache_root,
+            'repo_origin' => $repo_origin,
         ]);
 
         $phing_filename = '/tmp/phing_create_' . rand(0, 10000) . '.xml';
@@ -85,6 +92,7 @@ class JenkinsConnector extends ContainerAware implements CIInterface {
         $jenkins_config = $this->container->get('templating')->render(
             'FeatureBranchMainBundle::jenkins.config.xml.twig', [
             'phing_config_filename' => $phing_filename,
+            'phing_config_tasks' => 'git_clone',
         ]);
 
         $job_name = 'create-branch-' . $branch;

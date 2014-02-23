@@ -1,14 +1,16 @@
-<project default="hello">
-  <target name="hello">
-    <echo>Hello</echo>
-  </target>
+<project default="git_clone">
 
-  <target name="bye">
-    <echo>Bye</echo>
-  </target>
+  <target name="git_clone">
+    <property name="repo.dir" value="{{ apache_root }}/{{ branch }}" />
 
-  <target name="variable">
-    <echo>{{ branch }}</echo>
-  </target>
+    <!-- clone repository -->
+    <gitclone
+        repository="{{ repo_origin }}"
+        targetPath="${repo.dir}" />
 
+    <!-- create and switch to "mybranch" branch -->
+    <gitcheckout
+        repository="${repo.dir}"
+        branchname="{{ branch }}" quiet="true" create="true" />
+  </target>
 </project>

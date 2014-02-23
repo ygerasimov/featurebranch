@@ -25,6 +25,11 @@ class Configuration implements ConfigurationInterface
         // more information on that topic.
         $rootNode
             ->children()
+                ->scalarNode('apache_root')
+                    ->defaultValue('/var/www')
+                    ->info('Folder where we deploy projects.')
+                    ->example('/var/www')
+                ->end()
                 ->scalarNode('repo_origin')
                     ->defaultValue('http://git.drupal.org/project/drupal.git')
                     ->info('This is original repo we should pull the code from.')

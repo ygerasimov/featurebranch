@@ -69,6 +69,7 @@ swiftmailer:
     spool:     { type: memory }
 
 feature_branch_main:
+    apache_root: "/var/www"
     repo_origin: "/var/git/repo"
     work_filepath: "/var/www/control/app/data"
     ci_url: "http://192.168.56.101.xip.io:8080"

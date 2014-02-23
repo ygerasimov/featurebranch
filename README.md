@@ -23,3 +23,5 @@ physical server.
 
 Additionally you need to install curl php extension and install phing 
 (http://www.phing.info/).
+
+pear install VersionControl_Git-alpha

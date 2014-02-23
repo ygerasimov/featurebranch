@@ -48,5 +48,10 @@ class FeatureBranchMainExtension extends Extension
             'feature_branch.repo_origin',
             $config['repo_origin']
         );
+
+        $container->setParameter(
+            'feature_branch.apache_root',
+            $config['apache_root']
+        );
     }
 }

@@ -2,4 +2,10 @@
   <target name="delete_folder">
     <delete dir="{{ apache_root }}/{{ branch }}" />
   </target>
+
+  <target name="delete_db" description="Drop database in mysql">
+    <echo msg="DROP DATABASE {{ branch }}" />
+    <exec
+      command="mysql -u{{ mysql_login }} -p{{ mysql_pass}} -e'DROP DATABASE {{ branch }}'" />
+  </target>
 </project>

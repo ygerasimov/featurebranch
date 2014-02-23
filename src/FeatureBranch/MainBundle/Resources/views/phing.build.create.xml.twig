@@ -1,11 +1,26 @@
 <project default="git_clone">
 
-  <target name="git_clone">
-    <property name="repo.dir" value="{{ apache_root }}/{{ branch }}" />
+  <property name="drupal.root" value="{{ apache_root }}/{{ branch }}" />
 
+  <target name="git_clone" description="Clone the repository to proper place. Switch the branch">
     <exec
-      command="git clone --branch {{ branch }} {{ repo_origin }} {{ apache_root }}/{{ branch }}"
-      />
-
+      command="git clone --branch {{ branch }} {{ repo_origin }} ${drupal.root}" />
   </target>
+
+  <target name="files_directory" description="Create public files directory." depends="git_clone">
+    <mkdir dir="${drupal.root}/sites/default/files" />
+    <chmod file="${drupal.root}/sites/default/files" mode="0777" failonerror="true" />
+  </target>
+
+  <target name="copy_settings.php" description="Copy settings.php file." depends="git_clone">
+    <copy file="${drupal.root}/sites/default/default.settings.php" tofile="${drupal.root}/sites/default/settings.php" />
+    <chmod file="${drupal.root}/sites/default/settings.php" mode="0777" failonerror="true" />
+  </target>
+
+  <target name="create_db" description="Create database in mysql">
+    <echo msg="CREATE DATABASE {{ branch }}" />
+    <exec
+      command="mysql -u{{ mysql_login }} -p{{ mysql_pass}} -e'CREATE DATABASE {{ branch }}'" />
+  </target>
+
 </project>

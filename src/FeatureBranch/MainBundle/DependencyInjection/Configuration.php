@@ -45,6 +45,16 @@ class Configuration implements ConfigurationInterface
                     ->info('URL of the Continuous Integration server')
                     ->example('http://192.168.56.101.xip.io:8080')
                 ->end()
+                ->scalarNode('mysql_root_login')
+                    ->defaultValue('root')
+                    ->info('Login of the root mysql user')
+                    ->example('root')
+                ->end()
+                ->scalarNode('mysql_root_pass')
+                    ->defaultValue('root')
+                    ->info('Password of the root mysql user')
+                    ->example('root')
+                ->end()
             ->end()
         ;
 

@@ -53,5 +53,15 @@ class FeatureBranchMainExtension extends Extension
             'feature_branch.apache_root',
             $config['apache_root']
         );
+
+        $container->setParameter(
+            'feature_branch.mysql_root_login',
+            $config['mysql_root_login']
+        );
+
+        $container->setParameter(
+            'feature_branch.mysql_root_pass',
+            $config['mysql_root_pass']
+        );
     }
 }

@@ -51,22 +51,28 @@ class JenkinsConnector extends ContainerAware implements CIInterface {
      */
     public function deleteBranch($branch) {
         $apache_root = $this->container->getParameter('feature_branch.apache_root');
+        $mysql_root_login = $this->container->getParameter('feature_branch.mysql_root_login');
+        $mysql_root_pass = $this->container->getParameter('feature_branch.mysql_root_pass');
+
         $phing_config = $this->container->get('templating')->render(
             'FeatureBranchMainBundle::phing.build.delete.xml.twig', [
             'branch' => $branch,
             'apache_root' => $apache_root,
+            'mysql_login' => $mysql_root_login,
+            'mysql_pass' => $mysql_root_pass,
         ]);
 
-        $phing_filename = '/tmp/phing_delete_' . rand(0, 10000) . '.xml';
+        $rand = rand(0, 10000);
+        $phing_filename = '/tmp/phing_delete_' . $rand . '.xml';
         file_put_contents($phing_filename, $phing_config);
 
         $jenkins_config = $this->container->get('templating')->render(
             'FeatureBranchMainBundle::jenkins.config.xml.twig', [
             'phing_config_filename' => $phing_filename,
-            'phing_config_tasks' => 'delete_folder',
+            'phing_config_tasks' => 'delete_folder delete_db',
         ]);
 
-        $job_name = 'delete-branch-' . $branch;
+        $job_name = 'delete-branch-' . $branch . '-' . $rand;
         $this->createJenkinsJob($job_name, $jenkins_config);
 
         $this->triggerJenkinsBuild($job_name);
@@ -80,24 +86,29 @@ class JenkinsConnector extends ContainerAware implements CIInterface {
     public function createHost($branch) {
         $apache_root = $this->container->getParameter('feature_branch.apache_root');
         $repo_origin = $this->container->getParameter('feature_branch.repo_origin');
+        $mysql_root_login = $this->container->getParameter('feature_branch.mysql_root_login');
+        $mysql_root_pass = $this->container->getParameter('feature_branch.mysql_root_pass');
 
         $phing_config = $this->container->get('templating')->render(
             'FeatureBranchMainBundle::phing.build.create.xml.twig', [
             'branch' => $branch,
             'apache_root' => $apache_root,
             'repo_origin' => $repo_origin,
+            'mysql_login' => $mysql_root_login,
+            'mysql_pass' => $mysql_root_pass,
         ]);
 
-        $phing_filename = '/tmp/phing_create_' . rand(0, 10000) . '.xml';
+        $rand = rand(0, 10000);
+        $phing_filename = '/tmp/phing_create_' . $rand . '.xml';
         file_put_contents($phing_filename, $phing_config);
 
         $jenkins_config = $this->container->get('templating')->render(
             'FeatureBranchMainBundle::jenkins.config.xml.twig', [
             'phing_config_filename' => $phing_filename,
-            'phing_config_tasks' => 'git_clone',
+            'phing_config_tasks' => 'git_clone files_directory copy_settings.php create_db',
         ]);
 
-        $job_name = 'create-branch-' . $branch;
+        $job_name = 'create-branch-' . $branch . '-' . $rand;
         $this->createJenkinsJob($job_name, $jenkins_config);
 
         $this->triggerJenkinsBuild($job_name);

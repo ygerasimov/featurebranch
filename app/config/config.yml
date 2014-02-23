@@ -69,9 +69,9 @@ swiftmailer:
     spool:     { type: memory }
 
 feature_branch_main:
-    apache_root: "/var/www"
+    apache_root: "/var/www/project"
     repo_origin: "/var/git/repo"
     work_filepath: "/var/www/control/app/data"
     ci_url: "http://192.168.56.101.xip.io:8080"
     mysql_root_login: "root"
-    mysql_root_pass: "root"
+    mysql_root_pass: "123"

@@ -1,14 +1,14 @@
-<project default="hello">
-  <target name="hello">
-    <echo>Hello</echo>
+<project default="git_pull">
+  <property name="drupal.root" value="{{ apache_root }}/{{ branch }}" />
+
+  <target name="git_pull">
+    <echo>Update the code</echo>
+    <exec command="git pull" dir="${drupal.root}"/>
   </target>
 
-  <target name="bye">
-    <echo>Bye</echo>
-  </target>
-
-  <target name="variable">
-    <echo>{{ branch }}</echo>
+  <target name="update_database">
+    <echo>Update database</echo>
+    <exec command="drush -r ${drupal.root} updatedb -y" />
   </target>
 
 </project>

@@ -24,21 +24,24 @@ class JenkinsConnector extends ContainerAware implements CIInterface {
      * @param string $branch
      */
     public function updateBranch($branch) {
+        $apache_root = $this->container->getParameter('feature_branch.apache_root');
         $phing_config = $this->container->get('templating')->render(
             'FeatureBranchMainBundle::phing.build.update.xml.twig', [
             'branch' => $branch,
+            'apache_root' => $apache_root,
         ]);
 
-        $phing_filename = '/tmp/phing_update_' . rand(0, 10000) . '.xml';
+        $rand = rand(0, 10000);
+        $phing_filename = '/tmp/phing_update_' . $rand . '.xml';
         file_put_contents($phing_filename, $phing_config);
 
         $jenkins_config = $this->container->get('templating')->render(
             'FeatureBranchMainBundle::jenkins.config.xml.twig', [
             'phing_config_filename' => $phing_filename,
-            'phing_config_tasks' => 'hello',
+            'phing_config_tasks' => 'git_pull update_database',
         ]);
 
-        $job_name = 'update-branch-' . $branch;
+        $job_name = 'update-branch-' . $branch . '-' . $rand;
         $this->createJenkinsJob($job_name, $jenkins_config);
 
         $this->triggerJenkinsBuild($job_name);

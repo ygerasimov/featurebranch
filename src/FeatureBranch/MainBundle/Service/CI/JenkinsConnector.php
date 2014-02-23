@@ -88,6 +88,7 @@ class JenkinsConnector extends ContainerAware implements CIInterface {
         $repo_origin = $this->container->getParameter('feature_branch.repo_origin');
         $mysql_root_login = $this->container->getParameter('feature_branch.mysql_root_login');
         $mysql_root_pass = $this->container->getParameter('feature_branch.mysql_root_pass');
+        $hash_salt = $randomString = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_"), 0, 43);
 
         $phing_config = $this->container->get('templating')->render(
             'FeatureBranchMainBundle::phing.build.create.xml.twig', [
@@ -96,6 +97,7 @@ class JenkinsConnector extends ContainerAware implements CIInterface {
             'repo_origin' => $repo_origin,
             'mysql_login' => $mysql_root_login,
             'mysql_pass' => $mysql_root_pass,
+            'hash_salt' => $hash_salt,
         ]);
 
         $rand = rand(0, 10000);
@@ -105,7 +107,7 @@ class JenkinsConnector extends ContainerAware implements CIInterface {
         $jenkins_config = $this->container->get('templating')->render(
             'FeatureBranchMainBundle::jenkins.config.xml.twig', [
             'phing_config_filename' => $phing_filename,
-            'phing_config_tasks' => 'git_clone files_directory copy_settings.php create_db',
+            'phing_config_tasks' => 'git_clone files_directory copy_settings.php modify_settings.php create_db',
         ]);
 
         $job_name = 'create-branch-' . $branch . '-' . $rand;

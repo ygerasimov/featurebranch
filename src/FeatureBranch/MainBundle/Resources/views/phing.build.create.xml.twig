@@ -12,9 +12,31 @@
     <chmod file="${drupal.root}/sites/default/files" mode="0777" failonerror="true" />
   </target>
 
-  <target name="copy_settings.php" description="Copy settings.php file." depends="git_clone">
+  <target name="copy_settings.php" description="Copy settings.php file from defaults.settings.php." depends="git_clone">
     <copy file="${drupal.root}/sites/default/default.settings.php" tofile="${drupal.root}/sites/default/settings.php" />
     <chmod file="${drupal.root}/sites/default/settings.php" mode="0777" failonerror="true" />
+  </target>
+
+  <target name="modify_settings.php" description="Modify settings.php to add db credentials, salt" depends="copy_settings.php">
+    <property name="settings.php.modifications" value="
+      \$databases = array (\n
+        'default' =>\n
+        array(\n
+          'default' =>\n
+            array (\n
+              'database' => '{{ branch }}',\n
+              'username' => '{{ mysql_login }}',\n
+              'password' => '{{ mysql_pass}}',\n
+              'host' => '127.0.0.1',\n
+              'port' => '',\n
+              'driver' => 'mysql',\n
+              'prefix' => '',\n
+            ),\n
+        ),\n
+      );\n
+      \$drupal_hash_salt = '{{ hash_salt }}}';\n
+      " />
+    <exec command='echo "${settings.php.modifications}" >> ${drupal.root}/sites/default/settings.php' />
   </target>
 
   <target name="create_db" description="Create database in mysql">

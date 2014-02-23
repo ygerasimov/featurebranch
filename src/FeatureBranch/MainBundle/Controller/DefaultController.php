@@ -97,6 +97,9 @@ class DefaultController extends Controller
 
     public function hostsLandingPageAction()
     {
-        return new Response('Operation successful. <a href="' . $this->generateUrl('feature_branch_main_homepage') . '">Go back to the form</a>');
+        return $this->render('FeatureBranchMainBundle:Default:form_landing_page.html.twig', array(
+            'ci_url' => $this->container->getParameter('feature_branch.ci_url'),
+            'homepage' => $this->generateUrl('feature_branch_main_homepage'),
+        ));
     }
 }

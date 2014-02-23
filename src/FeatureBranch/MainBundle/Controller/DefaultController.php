@@ -27,12 +27,30 @@ class DefaultController extends Controller
             if (isset($hosts_state[$branch]) && $hosts_state[$branch]) {
                 $name = 'delete-' .$branch;
                 $label = 'Delete ' . $branch;
+                $class = 'btn btn-danger';
             }
             else {
                 $name = 'deploy-' .$branch;
                 $label = 'Deploy ' . $branch;
+                $class = 'btn btn-default';
+
+                if ($branch != 'master') {
+                  $options = array();
+                  foreach ($hosts_state as $host => $deployed) {
+                    if ($deployed) {
+                      $options[$host] = $host;
+                    }
+                  }
+                  $form->add('pulldb-' . $branch, 'choice', array(
+                    'choices' => $options,
+                    'empty_value' => 'Deploy ' . $branch . '. Select copy database from',
+                    'label' => ' ',
+                    'attr' => array('class' => 'form-control'),
+                    'label_attr' => array('class' => 'control-label'),
+                    ));
+                }
             }
-            $form->add($name, 'submit', array('label' => $label));
+            $form->add($name, 'submit', array('label' => $label, 'attr' => array('class' => $class)));
         }
         
         $form = $form->getForm();

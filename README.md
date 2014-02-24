@@ -24,4 +24,22 @@ physical server.
 Additionally you need to install curl php extension and install phing 
 (http://www.phing.info/).
 
-pear install VersionControl_Git-alpha
+Install VM with this tool and real life Drupal project
+=======================================================
+
+Go to puphpet.com and upload config.yaml file from puphpet folder. Download
+the vagrant configuration files and start the VM. If generating vagrant files
+after uploading config.yaml file doesn't work, generate any configuration but
+then replace puphpet/config.yaml in vagrant config files with config file from
+this repo.
+
+Login to VM and install Jenkins.
+
+From https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu
+
+wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
+sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
+sudo apt-get update
+sudo apt-get install jenkins
+
+

@@ -24,8 +24,9 @@ physical server.
 Additionally you need to install curl php extension and install phing 
 (http://www.phing.info/).
 
-Install VM with this tool and real life Drupal project
-=======================================================
+## Install VM with this tool and real life Drupal project
+
+### Puppet scripts from puphpet.com
 
 Go to puphpet.com and upload config.yaml file from puphpet folder. Download
 the vagrant configuration files and start the VM. If generating vagrant files
@@ -33,13 +34,38 @@ after uploading config.yaml file doesn't work, generate any configuration but
 then replace puphpet/config.yaml in vagrant config files with config file from
 this repo.
 
-Login to VM and install Jenkins.
+### Phing
+
+From http://www.phing.info/trac/wiki/Users/Installation
+
+```no-highlight
+pear channel-discover pear.phing.info
+pear install [--alldeps] phing/phing
+```
+
+### Jenkins
 
 From https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu
 
+```no-highlight
 wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
 sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
 sudo apt-get update
 sudo apt-get install jenkins
+```
 
+### Deploy the application
 
+Puppet scripts set up to have virtual host for the application in
+/var/www/control so you can clone this repo there. Next step is to download
+composer
+
+```no-highlight
+curl -sS https://getcomposer.org/installer | php
+```
+
+And run composer install in the root of the clone of this repo
+
+```no-highlight
+php composer.phar install
+```

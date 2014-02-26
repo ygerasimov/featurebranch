@@ -98,6 +98,14 @@ Install mysql
 apt-get install mysql-server
 ```
 
+### Drush
+
+You can install drush via apt
+
+```no-highlight
+apt-get install drush
+```
+
 ### Phing
 
 From http://www.phing.info/trac/wiki/Users/Installation

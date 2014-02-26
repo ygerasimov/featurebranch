@@ -142,6 +142,20 @@ cd /var/git/repo.git
 git --bare init
 ```
 
+Main thing about repository -- it should have post-receive hook customized. In
+this hook we need to do get request to http://192.168.56.101.xip.io/gitupdate
+(host to be adjusted according to your settings). You can set this hook for
+external repositories like on github.
+
+For the bare repo we need to add executable file in hooks folder.
+
+```no-highlight
+cd /var/git/repo.git/hooks
+echo '#!/bin/sh' > post-receive
+echo 'wget -O - -q -t 1 http://192.168.56.101.xip.io/gitupdate' >> post-receive
+chmod a+x post-receive
+```
+
 ### Deploy the application
 
 Puppet scripts set up to have virtual host for the application in

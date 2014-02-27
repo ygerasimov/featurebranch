@@ -210,7 +210,8 @@ mysql_root_login, mysql_root_pass -- credentials of the user who will create
 databases for hosts.
 
 
-### Cygwin installation
+### Windows users Cygwin installation
+
 Before going to cygwin console You should install EasyPHP Devserver. http://www.easyphp.org/easyphp-devserver.php
 We are using EasyPHP-DevServer-13.1VC9 here
 

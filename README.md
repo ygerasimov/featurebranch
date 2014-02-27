@@ -215,14 +215,15 @@ Before going to cygwin console You should install EasyPHP Devserver. http://www.
 We are using EasyPHP-DevServer-13.1VC9 here
 
 Get cygwin installation program from http://www.cygwin.com/
-Install basic packages and *curl, git* binaries or use *GIT bash* for a git from http://msysgit.github.io/
 
-After that clone this repo into Easyphp **data/localweb** folder
+Install basic packages and *curl, git* binaries or use *GIT bash* for a *git* from http://msysgit.github.io/
 
-go to *featurebranch* folder and type
+After that clone this repo into Easyphp **data/localweb/projects** folder
+
+go to *featurebranch* folder using cygwin console and type
 
 > *curl -sS https://getcomposer.org/installer | php*
 
-Next - update packages
+Next - update packages for a application
 
 > *php composer.phar update*

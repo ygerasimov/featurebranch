@@ -126,6 +126,8 @@ sudo apt-get update
 sudo apt-get install jenkins
 ```
 
+Enable phing plugin in Jenkins through UI.
+
 ### Set up bare git repository
 
 Our control application will need main repository to pull our drupal project

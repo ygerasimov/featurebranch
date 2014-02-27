@@ -26,10 +26,10 @@ class JenkinsConnector extends ContainerAware implements CIInterface {
     public function updateBranch($branch) {
         $apache_root = $this->container->getParameter('feature_branch.apache_root');
         $phing_config = $this->container->get('templating')->render(
-            'FeatureBranchMainBundle::phing.build.update.xml.twig', array
+            'FeatureBranchMainBundle::phing.build.update.xml.twig', array(
             'branch' => $branch,
             'apache_root' => $apache_root,
-        );
+        ));
 
         $rand = rand(0, 10000);
         $phing_filename = '/tmp/phing_update_' . $rand . '.xml';

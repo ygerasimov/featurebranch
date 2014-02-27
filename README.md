@@ -208,3 +208,17 @@ ci_url -- url of the Jenkins. Change it accordingly to your host and port setup.
 
 mysql_root_login, mysql_root_pass -- credentials of the user who will create
 databases for hosts.
+
+
+### Cygwin installation
+Before go to cygwin console You should install EasyPHP Devserver. http://www.easyphp.org/easyphp-devserver.php
+We are using EasyPHP-DevServer-13.1VC9 here
+
+Get cygwin installation program from http://www.cygwin.com/
+Install basic packages and *curl, git* binaries or use *GIT bash* for a git from http://msysgit.github.io/
+
+After that clone this repo into Easyphp **data/localweb** folder
+go to *featurebranch* folder and type
+> *curl -sS https://getcomposer.org/installer | php*
+Next - update packages
+> *php composer.phar update*

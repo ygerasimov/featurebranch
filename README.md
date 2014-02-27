@@ -218,7 +218,11 @@ Get cygwin installation program from http://www.cygwin.com/
 Install basic packages and *curl, git* binaries or use *GIT bash* for a git from http://msysgit.github.io/
 
 After that clone this repo into Easyphp **data/localweb** folder
+
 go to *featurebranch* folder and type
+
 > *curl -sS https://getcomposer.org/installer | php*
+
 Next - update packages
+
 > *php composer.phar update*

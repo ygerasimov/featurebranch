@@ -94,7 +94,7 @@ class JenkinsConnector extends ContainerAware implements CIInterface {
         $hash_salt = $randomString = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_"), 0, 43);
 
         $phing_config = $this->container->get('templating')->render(
-            'FeatureBranchMainBundle::phing.build.create.xml.twig', [
+            'FeatureBranchMainBundle::phing.build.create.xml.twig', array(
             'branch' => $branch,
             'apache_root' => $apache_root,
             'repo_origin' => $repo_origin,
@@ -102,17 +102,17 @@ class JenkinsConnector extends ContainerAware implements CIInterface {
             'mysql_pass' => $mysql_root_pass,
             'hash_salt' => $hash_salt,
             'origin_branch' => $origin_branch,
-        ]);
+        ));
 
         $rand = rand(0, 10000);
         $phing_filename = '/tmp/phing_create_' . $rand . '.xml';
         file_put_contents($phing_filename, $phing_config);
 
         $jenkins_config = $this->container->get('templating')->render(
-            'FeatureBranchMainBundle::jenkins.config.xml.twig', [
+            'FeatureBranchMainBundle::jenkins.config.xml.twig', array(
             'phing_config_filename' => $phing_filename,
             'phing_config_tasks' => 'git_clone files_directory copy_settings.php modify_settings.php create_db copy_db',
-        ]);
+        ));
 
         $job_name = 'create-branch-' . $branch . '-' . $rand;
         $this->createJenkinsJob($job_name, $jenkins_config);

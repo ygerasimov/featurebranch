@@ -26,20 +26,20 @@ class JenkinsConnector extends ContainerAware implements CIInterface {
     public function updateBranch($branch) {
         $apache_root = $this->container->getParameter('feature_branch.apache_root');
         $phing_config = $this->container->get('templating')->render(
-            'FeatureBranchMainBundle::phing.build.update.xml.twig', [
+            'FeatureBranchMainBundle::phing.build.update.xml.twig', array
             'branch' => $branch,
             'apache_root' => $apache_root,
-        ]);
+        );
 
         $rand = rand(0, 10000);
         $phing_filename = '/tmp/phing_update_' . $rand . '.xml';
         file_put_contents($phing_filename, $phing_config);
 
         $jenkins_config = $this->container->get('templating')->render(
-            'FeatureBranchMainBundle::jenkins.config.xml.twig', [
+            'FeatureBranchMainBundle::jenkins.config.xml.twig', array(
             'phing_config_filename' => $phing_filename,
             'phing_config_tasks' => 'git_pull update_database',
-        ]);
+        ));
 
         $job_name = 'update-branch-' . $branch . '-' . $rand;
         $this->createJenkinsJob($job_name, $jenkins_config);
@@ -58,22 +58,22 @@ class JenkinsConnector extends ContainerAware implements CIInterface {
         $mysql_root_pass = $this->container->getParameter('feature_branch.mysql_root_pass');
 
         $phing_config = $this->container->get('templating')->render(
-            'FeatureBranchMainBundle::phing.build.delete.xml.twig', [
+            'FeatureBranchMainBundle::phing.build.delete.xml.twig', array(
             'branch' => $branch,
             'apache_root' => $apache_root,
             'mysql_login' => $mysql_root_login,
             'mysql_pass' => $mysql_root_pass,
-        ]);
+        ));
 
         $rand = rand(0, 10000);
         $phing_filename = '/tmp/phing_delete_' . $rand . '.xml';
         file_put_contents($phing_filename, $phing_config);
 
         $jenkins_config = $this->container->get('templating')->render(
-            'FeatureBranchMainBundle::jenkins.config.xml.twig', [
+            'FeatureBranchMainBundle::jenkins.config.xml.twig', array(
             'phing_config_filename' => $phing_filename,
             'phing_config_tasks' => 'delete_folder delete_db',
-        ]);
+        ));
 
         $job_name = 'delete-branch-' . $branch . '-' . $rand;
         $this->createJenkinsJob($job_name, $jenkins_config);

@@ -7,3 +7,11 @@ feature_branch_main_gitupdate:
 feature_branch_main_hosts_landing_page:
     pattern:  /hosts_landing_page
     defaults: { _controller: FeatureBranchMainBundle:Default:hostsLandingPage }
+
+login:
+    path: /login
+    defaults: { _controller: FeatureBranchMainBundle:Login:login }
+
+login_check:
+    path: /login_check
+    #defaults: { _controller: FeatureBranchMainBundle:Login:securityCheck }

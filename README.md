@@ -211,7 +211,7 @@ databases for hosts.
 
 
 ### Cygwin installation
-Before go to cygwin console You should install EasyPHP Devserver. http://www.easyphp.org/easyphp-devserver.php
+Before going to cygwin console You should install EasyPHP Devserver. http://www.easyphp.org/easyphp-devserver.php
 We are using EasyPHP-DevServer-13.1VC9 here
 
 Get cygwin installation program from http://www.cygwin.com/

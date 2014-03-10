@@ -32,18 +32,5 @@ class LoginController extends Controller
           'error'         => $error,
         )
       );
-      //return $this->render('FeatureBranchMainBundle:Login:login.html.twig', array());
     }
-
-    public function securityCheckAction(Request $request)
-    {
-      var_dump('<pre>');
-      var_dump($request->getSession());
-      var_dump('</pre>');
-      return $this->render('FeatureBranchMainBundle:Default:form_landing_page.html.twig', array(
-        'ci_url' => $this->container->getParameter('feature_branch.ci_url'),
-        'homepage' => $this->generateUrl('feature_branch_main_homepage'),
-      ));
-    }
-
 }

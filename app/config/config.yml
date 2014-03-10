@@ -72,6 +72,6 @@ feature_branch_main:
     apache_root: "/var/www/project"
     repo_origin: "/var/git/repo.git"
     work_filepath: "/var/www/featurebranch/app/data"
-    ci_url: "http://fb.local:8080"
+    ci_url: "http://fb.fuf.me:8080"
     mysql_root_login: "root"
-    mysql_root_pass: "root"
+    mysql_root_pass: "123"

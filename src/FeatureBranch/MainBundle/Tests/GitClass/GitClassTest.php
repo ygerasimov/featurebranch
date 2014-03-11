@@ -69,7 +69,7 @@ class GitClassTest extends \PHPUnit_Framework_TestCase {
     $ci = $this->getMock('\FeatureBranch\MainBundle\Service\CI\CILogger', array('updateBranch', 'deleteBranch'));
     $ci->expects($this->once())
         ->method('updateBranch')
-        ->with('origin/master');
+        ->with('master');
     
     $git = new GitClass($ci, $this->origin, $this->destination, $this->state_filename);
     $git->checkState();
@@ -81,10 +81,10 @@ class GitClassTest extends \PHPUnit_Framework_TestCase {
     $ci = $this->getMock('\FeatureBranch\MainBundle\Service\CI\CILogger', array('updateBranch', 'deleteBranch'));
     $ci->expects($this->at(0))
         ->method('updateBranch')
-        ->with('origin/master');
+        ->with('master');
     $ci->expects($this->at(1))
         ->method('updateBranch')
-        ->with('origin/testbranch1');
+        ->with('testbranch1');
     $git = new GitClass($ci, $this->origin, $this->destination, $this->state_filename);
     $git->checkState();
 
@@ -103,7 +103,7 @@ class GitClassTest extends \PHPUnit_Framework_TestCase {
     $ci = $this->getMock('\FeatureBranch\MainBundle\Service\CI\CILogger', array('updateBranch', 'deleteBranch'));
     $ci->expects($this->once())
         ->method('deleteBranch')
-        ->with('origin/testbranch1');
+        ->with('testbranch1');
 
     $git = new GitClass($ci, $this->origin, $this->destination, $this->state_filename);
     $git->checkState();

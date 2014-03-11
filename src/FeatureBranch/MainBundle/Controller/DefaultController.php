@@ -26,12 +26,12 @@ class DefaultController extends Controller
 
         foreach ($branches as $branch => $commit) {
             if (isset($hosts_state[$branch]) && $hosts_state[$branch]) {
-                $name = 'delete-' .$branch;
+                $name = 'delete-' . $branch;
                 $label = 'Delete ' . $branch;
                 $class = 'btn btn-danger';
             }
             else {
-                $name = 'deploy-' .$branch;
+                $name = 'deploy-' . $branch;
                 $label = 'Deploy ' . $branch;
                 $class = 'btn btn-default';
 
@@ -49,7 +49,7 @@ class DefaultController extends Controller
                     'required' => FALSE,
                     'attr' => array('class' => 'form-control'),
                     'label_attr' => array('class' => 'control-label'),
-                    ));
+                  ));
                 }
             }
             $form->add($name, 'submit', array('label' => $label, 'attr' => array('class' => $class)));

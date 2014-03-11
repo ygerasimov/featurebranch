@@ -131,7 +131,7 @@ You can configure users and security for Jenkins
 From https://wiki.jenkins-ci.org/display/JENKINS/Standard+Security+Setup
 
 ![Working example for admin/Anonymous users](https://raw.github.com/podarok/featurebranch/master/jenkins_security.png)
-This example use no authentification for featurebranch jobs creation process.
+This example use no authentification for featurebranch jobs creation process via Anonymous jenkins user.
 
 After adding admin user permissions you can create the user itself via ***login*** link at top-right of the screen.
 

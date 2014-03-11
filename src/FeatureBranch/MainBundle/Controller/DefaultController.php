@@ -5,6 +5,7 @@ namespace FeatureBranch\MainBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\SecurityContext;
 
 class DefaultController extends Controller
 {
@@ -102,4 +103,22 @@ class DefaultController extends Controller
             'homepage' => $this->generateUrl('feature_branch_main_homepage'),
         ));
     }
+
+  public function loginAction(Request $request)
+  {
+    if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+      $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
+    } else {
+      $error = $request->getSession()->get(SecurityContext::AUTHENTICATION_ERROR);
+    }
+
+    return array(
+      'last_username' => $request->getSession()->get(SecurityContext::LAST_USERNAME),
+      'error' => $error,
+    );
+  }
+
+  public function securityCheckAction(Request $request)
+  {
+  }
 }

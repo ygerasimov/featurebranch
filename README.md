@@ -1,11 +1,11 @@
 [![Build Status](https://travis-ci.org/podarok/featurebranch.png?branch=master)](https://github.com/podarok/featurebranch)
 
 Featurebranch
-========================
+=========================
 
 When using git branches for separate features of web applications it is
 always handy to have possibility to spin virtual hosts from branches in order
-to do testing before merging into main branch.
+to do testing before merging into main branch
 
 This Symfony based project is aimed to be middleware between git repo and
 Continuous integration server that will build hosts from git branches
@@ -13,6 +13,9 @@ and update them automatically when detects commits to those branches.
 
 This app has an url that can be triggered in post-receive hook of git. All will
 fetch these commits and check what branch has been updated.
+
+Admin credentials for the application are admin / propeople. If you would like
+to change them please see app/config/config.yml file.
 
 Installation
 ========================
@@ -128,15 +131,16 @@ sudo apt-get update
 sudo apt-get install jenkins
 ```
 
+Enable phing plugin in Jenkins through UI.
+
 You can configure users and security for Jenkins
 
 From https://wiki.jenkins-ci.org/display/JENKINS/Standard+Security+Setup
 
-![Working example for admin/Anonymous users](https://raw.github.com/podarok/featurebranch/master/jenkins_security.png)
+![Working example for admin/Anonymous users](https://raw.github.com/ygerasimov/featurebranch/master/jenkins_security.png)
 This example use no authentification for featurebranch jobs creation process via Anonymous jenkins user.
 
 After adding admin user permissions you can create the user itself via ***login*** link at top-right of the screen.
-
 
 ### PHP CodeSniffer installation
 
@@ -156,6 +160,8 @@ Installing Drupal sniff rules for CodeSniffer
 cp -R $HOME/.drush/coder/coder_sniffer/Drupal /usr/share/php/PHP/CodeSniffer/Standards/
 ```
 
+
+=======
 
 ### Set up bare git repository
 
@@ -256,7 +262,8 @@ sniffer_report_file -- filename for storing report from executed CodeSniffer.
 Default to "report.txt"
 
 
-### Cygwin installation
+### Windows users Cygwin installation
+
 Before going to cygwin console You should install EasyPHP Devserver. http://www.easyphp.org/easyphp-devserver.php
 We are using EasyPHP-DevServer-13.1VC9 here
 

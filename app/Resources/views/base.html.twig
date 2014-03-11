@@ -7,6 +7,9 @@
             {% stylesheets '@FeatureBranchMainBundle/Resources/public/bootstrap/css/*.min.css' %}
                 <link rel="stylesheet" href="{{ asset_url }}"></link>
             {% endstylesheets %}
+            {% stylesheets '@FeatureBranchMainBundle/Resources/public/css/featurebranch.css' %}
+                <link rel="stylesheet" href="{{ asset_url }}"></link>
+            {% endstylesheets %}
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>

@@ -1,5 +1,38 @@
 {% extends '::base.html.twig' %}
 
+{% form_theme form _self %}
+
+{% block form_row %}
+{% spaceless %}
+<div class="row show-grid">
+  <div class="col-md-4">
+  {{ form_errors(form) }}
+  {{ form_widget(form) }}
+  </div>
+{% endspaceless %}
+{% endblock form_row %}
+
+{% block button_row %}
+{% spaceless %}
+   {{ form_widget(form) }}
+{% endspaceless %}
+{% endblock button_row %}
+
+{% block button_widget %}
+{% spaceless %}
+    {% if label is empty %}
+        {% set label = name|humanize %}
+    {% endif %}
+    {% if name starts with 'delete-' %}
+      <div class="row show-grid">
+    {% endif %}
+        <div class="col-md-4">
+        <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>{{ label|trans({}, translation_domain) }}</button>
+        </div>
+    </div>
+{% endspaceless %}
+{% endblock button_widget %}
+
 {% block body %}
 <div class="container">
   <div class="row">
@@ -8,13 +41,10 @@
 
       <p class="lead">This page allow to deploy / delete branches of your current project.</p>
       {{ form_start(form) }}
-          {{ form_errors(form) }}
-      <table class="table">
-        <tbody>
-          {% for child in form.children %}
-          <tr><td><div class="form-group">{{ form_row(child) }}</div></td></tr>
-          {% endfor %}
-      </table>
+      {{ form_errors(form) }}
+        {% for child in form.children %}
+          {{ form_row(child) }}
+        {% endfor %}
       {{ form_end(form) }}
     </div>
   </div>

@@ -4,7 +4,12 @@ php:
   - 5.3.3
   - 5.3
   - 5.4
+  - 5.5
+  - 5.6
 
-before_script: composer install -n
+before_script:
+    - sh -c 'if [ "$TRAVIS_PHP_VERSION" != "5.3.3" ]; then echo "extension = php_openssl.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi;'
+    - COMPOSER_ROOT_VERSION=dev-master composer --prefer-source --dev install
 
-script: phpunit -c app
+script:
+    - phpunit -c app

@@ -13,4 +13,5 @@ before_script:
     - COMPOSER_ROOT_VERSION=dev-master composer --prefer-source --dev install
 
 script:
+    - git config --global user.email "podarokua@gmail.com"
     - phpunit -c app

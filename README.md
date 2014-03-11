@@ -12,6 +12,9 @@ and update them automatically when detects commits to those branches.
 This app has an url that can be triggered in post-receive hook of git. All will
 fetch these commits and check what branch has been updated.
 
+Admin credentials for the application are admin / propeople. If you would like
+to change them please see app/config/config.yml file.
+
 Installation
 ========================
 

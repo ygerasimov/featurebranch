@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/podarok/featurebranch.png?branch=master)](https://github.com/podarok/featurebranch)
+
 Featurebranch
 =========================
 

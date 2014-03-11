@@ -138,6 +138,24 @@ This example use no authentification for featurebranch jobs creation process via
 After adding admin user permissions you can create the user itself via ***login*** link at top-right of the screen.
 
 
+### PHP CodeSniffer installation
+
+From https://drupal.org/node/1419988
+
+Getting Drupal sniff rules
+```
+drush pm-download coder --destination=$HOME/.drush
+```
+Installing PHP CodeSniffer
+```
+sudo apt-get install php-codesniffer
+```
+
+Installing Drupal sniff rules for CodeSniffer
+```
+cp -R $HOME/.drush/coder/coder_sniffer/Drupal /usr/share/php/PHP/CodeSniffer/Standards/
+```
+
 
 ### Set up bare git repository
 
@@ -222,6 +240,21 @@ ci_url -- url of the Jenkins. Change it accordingly to your host and port setup.
 mysql_root_login, mysql_root_pass -- credentials of the user who will create
 databases for hosts.
 
+sniffer_extensions -- extensions of files for CodeSniffer to be parsed.
+Defaults to "module,inc,php,install"
+
+sniffer_ignore_patterns -- ignored patterns for CodeSniffer to be ignored during parsing.
+Defaults to  "contrib,*.features.*"
+
+sniffer_standard -- standard for CodeSniffer for sniff rules.
+Default to "Drupal". Possible values can be obrained from console command
+```
+phpcs -i
+```
+
+sniffer_report_file -- filename for storing report from executed CodeSniffer.
+Default to "report.txt"
+
 
 ### Cygwin installation
 Before going to cygwin console You should install EasyPHP Devserver. http://www.easyphp.org/easyphp-devserver.php
@@ -234,9 +267,10 @@ Install basic packages and *curl, git* binaries or use *GIT bash* for a *git* fr
 After that clone this repo into Easyphp **data/localweb/projects** folder
 
 go to *featurebranch* folder using cygwin console and type
-
-> *curl -sS https://getcomposer.org/installer | php*
-
+```
+curl -sS https://getcomposer.org/installer | php
+```
 Next - update packages for a application
-
-> *php composer.phar update*
+```
+php composer.phar update
+```

@@ -59,4 +59,12 @@
     {% endif %}
   </target>
 
+    <target name="sniff" description="Run PHP CodeSniffer for the project codebase">
+        <exec command="phpcs --extensions={{ sniffer_extensions }} --ignore={{ sniffer_ignore_patterns }} -n --standard={{ sniffer_standard }} -- ${drupal.root}/sites --report-file=${drupal.root}/{{ sniffer_report_file }}" outputProperty="message"/>
+        <echo msg="CodeSniffer output: ${message}"/>
+        <echo msg="Full report output:"/>
+        <exec command="cat ${drupal.root}/{{ sniffer_report_file }}"  outputProperty="message2"/>
+        <echo msg="${message2}"/>
+    </target>
+
 </project>

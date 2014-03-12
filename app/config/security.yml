@@ -17,7 +17,7 @@ security:
 
     firewalls:
         dev:
-            pattern:   ^/
+            pattern:   ^/(?!(gitupdate))
             anonymous: ~
             form_login:
                login_path: login
@@ -45,5 +45,6 @@ security:
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, roles: ROLE_ADMIN }
+        - { path: ^/gitupdate, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(?!(gitupdate)), roles: ROLE_ADMIN }
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

@@ -63,5 +63,25 @@ class FeatureBranchMainExtension extends Extension
             'feature_branch.mysql_root_pass',
             $config['mysql_root_pass']
         );
+
+        $container->setParameter(
+            'feature_branch.sniffer_extensions',
+            $config['sniffer_extensions']
+        );
+
+        $container->setParameter(
+            'feature_branch.sniffer_ignore_patterns',
+            $config['sniffer_ignore_patterns']
+        );
+
+        $container->setParameter(
+            'feature_branch.sniffer_standard',
+            $config['sniffer_standard']
+        );
+
+        $container->setParameter(
+            'feature_branch.sniffer_report_file',
+            $config['sniffer_report_file']
+        );
     }
 }

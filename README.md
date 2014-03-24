@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/podarok/featurebranch.png?branch=master)](https://github.com/podarok/featurebranch)
 
 Featurebranch
-=========================
+============================
 
 When using git branches for separate features of web applications it is
 always handy to have possibility to spin virtual hosts from branches in order

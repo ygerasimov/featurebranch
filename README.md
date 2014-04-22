@@ -151,8 +151,11 @@ Getting Drupal sniff rules
 drush pm-download coder --destination=$HOME/.drush
 ```
 Installing PHP CodeSniffer
+In order to get the latest PHP CodeSniffer version we recommend to use PEAR for installation.
 ```
-sudo apt-get install php-codesniffer
+sudo apt-get install php-pear
+sudo pear update-channels
+sudo pear install PHP_CodeSniffer
 ```
 
 Installing Drupal sniff rules for CodeSniffer
